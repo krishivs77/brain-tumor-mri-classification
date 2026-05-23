@@ -87,4 +87,8 @@ brain-tumor-mri-classification/
 ## Status
 
 Project setup complete.
-Exploratory data analysis in progress.
+Exploratory data analysis complete.
+Dataset pipline complete.
+Baseline CNN training complete.
+
+The baseline CNN reached a best validation accuracy of approximately **92.9%** after 5 epochs. FInal test evaluation has not yet been performed.
