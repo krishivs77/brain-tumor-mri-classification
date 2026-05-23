@@ -88,7 +88,10 @@ brain-tumor-mri-classification/
 
 Project setup complete.
 Exploratory data analysis complete.
-Dataset pipline complete.
+Dataset pipeline complete.
 Baseline CNN training complete.
+Model evaluation complete.
 
-The baseline CNN reached a best validation accuracy of approximately **92.9%** after 5 epochs. FInal test evaluation has not yet been performed.
+The baseline CNN reached a best validation accuracy of approximately **92.9%** after 5 epochs.
+
+On the held-out test set, the baseline CNN achieved approximately **86.6%** accuracy. Error analysis showed strongest performance on pituitary tumors and healthy scans, while glioma and meningioma classification remained more challenging.
