@@ -90,8 +90,40 @@ Project setup complete.
 Exploratory data analysis complete.
 Dataset pipeline complete.
 Baseline CNN training complete.
-Model evaluation complete.
+Baseline model evaluation complete.
+Transfer learning experiments complete.
 
 The baseline CNN reached a best validation accuracy of approximately **92.9%** after 5 epochs.
 
 On the held-out test set, the baseline CNN achieved approximately **86.6%** accuracy. Error analysis showed strongest performance on pituitary tumors and healthy scans, while glioma and meningioma classification remained more challenging.
+
+---
+
+## Model Comparison
+
+| Model | Best Validation Accuracy | Test Accuracy |
+|---|---:|---:|
+| Baseline CNN | 92.9% | 86.6% |
+| Frozen ResNet18 | 92.2% | 86.1% |
+| Fine-Tuned ResNet18 | 95.5% | 91.0% |
+
+---
+
+## Key Findings
+
+- A custom CNN trained from scratch achieved strong baseline performance on the MRI classification task.
+- Frozen transfer learning with ResNet18 produced comparable validation performance, but did not outperform the baseline CNN on the held-out test set.
+- Fine-tuning the deeper ResNet18 layers significantly improved performance, increasing test accuracy to approximately **91%**.
+- Glioma classification remained the most challenging class across all experiments, while pituitary tumors and healthy scans achieved the strongest performance.
+- Results suggest that partial fine-tuning of pretrained models is more effective for this MRI dataset than using fully frozen ImageNet features.
+
+---
+
+## Future Work
+
+Potential future improvements include:
+- Grad-CAM interpretability visualizations
+- Data augmentation experiments
+- EfficientNet and DenseNet comparisons
+- Hyperparameter optimization
+- Streamlit deployment for interactive inference
