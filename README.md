@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project builds a deep learning pipline for classifying brain MRI images into four categories:
+This project builds a deep learning pipeline for classifying brain MRI images into four categories:
 
 - Glioma
 - Meningioma
@@ -12,6 +12,8 @@ This project builds a deep learning pipline for classifying brain MRI images int
 The project begins with exploratory data analysis and a baseline convolutional neural network (CNN), then progresses toward transfer learning and model interpretability techniques such as Grad-CAM.
 
 The goal is not only to achieve strong classification performance, but also to build a reproducible and interpretable neuro-imaging workflow.
+
+Fine-tuned ResNet18 achieved **91.0% test accuracy** on the four-class MRI classification task.
 
 ---
 
@@ -30,20 +32,20 @@ The dataset contains labeled MRI scans split into training and testing sets.
 
 ```text
 brain-tumor-mri-classification/
-├── data/
-├── notebooks/
-├── src/
-├── figures/
-├── models/
-├── reports/
-├── README.md
-├── requirements.txt
-└── .gitignore
+├── data/              # Local dataset storage (not tracked by Git)
+├── notebooks/         # Exploratory analysis, training, evaluation, and experiments
+├── src/               # Reusable Python modules for config, datasets, and models
+├── figures/           # Saved plots and visualizations used in the README
+├── models/            # Saved model checkpoints (not tracked by Git)
+├── reports/           # Future written summaries or project reports
+├── README.md          # Project documentation
+├── requirements.txt   # Python dependencies
+└── .gitignore         # Files and folders excluded from Git tracking
 ```
 
 ---
 
-## Planned Workflow
+## Workflow
 
 ### 1. Exploratory Data Analysis
 - Class distribution
@@ -84,18 +86,27 @@ brain-tumor-mri-classification/
 
 ---
 
+## Setup
+
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+---
+
 ## Status
 
-Project setup complete.
-Exploratory data analysis complete.
-Dataset pipeline complete.
-Baseline CNN training complete.
-Baseline model evaluation complete.
-Transfer learning experiments complete.
+- Project setup complete
+- Exploratory data analysis complete
+- Dataset pipeline complete
+- Baseline CNN training and evaluation complete
+- Transfer learning experiments complete
 
-The baseline CNN reached a best validation accuracy of approximately **92.9%** after 5 epochs.
+The best-performing model was a fine-tuned ResNet18, which achieved **95.5% validation accuracy** and **91.0% test accuracy**.
 
-On the held-out test set, the baseline CNN achieved approximately **86.6%** accuracy. Error analysis showed strongest performance on pituitary tumors and healthy scans, while glioma and meningioma classification remained more challenging.
+The baseline CNN achieved **86.6% test accuracy**, while the frozen ResNet18 achieved **86.1% test accuracy**. Fine-tuning deeper ResNet18 layers produced the strongest generalization performance.
 
 ---
 
@@ -106,6 +117,22 @@ On the held-out test set, the baseline CNN achieved approximately **86.6%** accu
 | Baseline CNN | 92.9% | 86.6% |
 | Frozen ResNet18 | 92.2% | 86.1% |
 | Fine-Tuned ResNet18 | 95.5% | 91.0% |
+
+---
+
+## Visual Results
+
+### Fine-Tuned ResNet18 Accuracy Curve
+
+![Fine-Tuned ResNet18 Accuracy Curve](figures/resnet18_accuracy_curve.png)
+
+### Fine-Tuned ResNet18 Loss Curve
+
+![Fine-Tuned ResNet18 Loss Curve](figures/resnet18_loss_curve.png)
+
+### Fine-Tuned ResNet18 Confusion Matrix
+
+![Fine-Tuned ResNet18 Confusion Matrix](figures/finetuned_resnet_confusion_matrix.png)
 
 ---
 
