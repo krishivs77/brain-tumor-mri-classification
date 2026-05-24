@@ -1,9 +1,10 @@
 import torch
 import torch.nn as nn
 from PIL import Image
-from torchvision import models, transforms
+from torchvision import models
 
 from src.config import CLASSES, MODELS_DIR
+from src.transforms import get_transform
 
 def get_device():
     if torch.backends.mps.is_available():
@@ -12,18 +13,7 @@ def get_device():
         return torch.device("cuda")
     return torch.device("cpu")
 
-def get_transform():
-    return transforms.Compose([
-        transforms.Resize((224, 224)),
-        transforms.Grayscale(num_output_channels=3),
-        transforms.ToTensor(),
-        transforms.Normalize(
-            mean=[0.485, 0.456, 0.406],
-            std=[0.229, 0.224, 0.225]
-        )
-    ])
-
-def load_model(model_path=MODELS_DIR / "resnet18_finetuned.pth"):
+def load_model(model_path=MODELS_DIR / "resnet18_brain_mri_v1.pth"):
     device = get_device()
 
     weights = models.ResNet18_Weights.DEFAULT
@@ -38,21 +28,32 @@ def load_model(model_path=MODELS_DIR / "resnet18_finetuned.pth"):
         nn.Linear(128, len(CLASSES))
     )
 
+    checkpoint = torch.load(
+        model_path,
+        map_location=device
+    )
+
     model.load_state_dict(
-        torch.load(
-            model_path,
-            map_location=device
-        )
+        checkpoint["model_state_dict"]
     )
 
     model = model.to(device)
     model.eval()
 
-    return model, device
+    metadata = {
+        "class_names": checkpoint.get("class_names", CLASSES),
+        "image_size": checkpoint.get("image_size", 224),
+        "model_name": checkpoint.get("model_name", "resnet18_finetuned"),
+        "validation_accuracy": checkpoint.get("validation_accuracy"),
+        "test_accuracy": checkpoint.get("test_accuracy"),
+        "notes": checkpoint.get("notes")
+    }
+
+    return model, device, metadata
 
 def predict_image(image_path, model=None, device=None):
     if model is None or device is None:
-        model, device = load_model()
+        model, device, _ = load_model()
     
     transform = get_transform()
 

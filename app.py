@@ -18,7 +18,11 @@ st.write(
     "Upload a brain MRI image to classify it using the fine-tuned ResNet18 model."
 )
 
-model, device = load_model()
+model, device, metadata = load_model()
+
+st.caption(
+    f"Model: {metadata['model_name']} | Test accuracy: {metadata['test_accuracy']:.2%}"
+)
 
 uploaded_file = st.file_uploader(
     "Choose an MRI image",
