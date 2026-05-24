@@ -134,6 +134,16 @@ The baseline CNN achieved **86.6% test accuracy**, while the frozen ResNet18 ach
 
 ![Fine-Tuned ResNet18 Confusion Matrix](figures/finetuned_resnet_confusion_matrix.png)
 
+### Grad-CAM Interpretability Examples
+
+Correctly classified examples:
+
+![Grad-CAM Correct Examples](figures/gradcam_correct_examples.png)
+
+Misclassified examples:
+
+![Grad-CAM Misclassified Examples](figures/gradcam_misclassified_examples.png)
+
 ---
 
 ## Key Findings
@@ -143,6 +153,7 @@ The baseline CNN achieved **86.6% test accuracy**, while the frozen ResNet18 ach
 - Fine-tuning the deeper ResNet18 layers significantly improved performance, increasing test accuracy to approximately **91%**.
 - Glioma classification remained the most challenging class across all experiments, while pituitary tumors and healthy scans achieved the strongest performance.
 - Results suggest that partial fine-tuning of pretrained models is more effective for this MRI dataset than using fully frozen ImageNet features.
+- Grad-CAM visualizations showed that the fine-tuned model often focused near tumor regions, but misclassified glioma cases sometimes showed broader or less localized attention patterns.
 
 ---
 
