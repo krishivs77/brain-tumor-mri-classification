@@ -5,7 +5,7 @@ import torch
 from PIL import Image
 
 from src.inference import get_transform, load_model, predict_image
-from gradcam import GradCAM, create_gradcam_overlay
+from src.gradcam import GradCAM, create_gradcam_overlay
 
 st.set_page_config(
     page_title="Brain MRI Classifier",
