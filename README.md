@@ -32,6 +32,7 @@ The dataset contains labeled MRI scans split into training and testing sets.
 
 ```text
 brain-tumor-mri-classification/
+├── app.py             # Streamlit demo for interactive MRI classification
 ├── data/              # Local dataset storage (not tracked by Git)
 ├── notebooks/         # Exploratory analysis, training, evaluation, and experiments
 ├── src/               # Reusable Python modules for config, datasets, and models
@@ -83,6 +84,7 @@ brain-tumor-mri-classification/
 - matplotlib
 - scikit-learn
 - Jupyter
+- Streamlit
 
 ---
 

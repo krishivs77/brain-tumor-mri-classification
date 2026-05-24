@@ -3,7 +3,7 @@ import torch.nn as nn
 from PIL import Image
 from torchvision import models, transforms
 
-from config import CLASSES, MODELS_DIR
+from src.config import CLASSES, MODELS_DIR
 
 def get_device():
     if torch.backends.mps.is_available():
