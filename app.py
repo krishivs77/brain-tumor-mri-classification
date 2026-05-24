@@ -1,9 +1,11 @@
 import tempfile
 
 import streamlit as st
+import torch
 from PIL import Image
 
-from src.inference import load_model, predict_image
+from src.inference import get_transform, load_model, predict_image
+from gradcam import GradCAM, create_gradcam_overlay
 
 st.set_page_config(
     page_title="Brain MRI Classifier",
@@ -47,3 +49,46 @@ if uploaded_file is not None:
 
     for class_name, score in confidence_scores.items():
         st.write(f"{class_name}: {score:.4f}")
+    
+    show_gradcam = st.checkbox("Show Grad-CAM explanation")
+
+    if show_gradcam:
+        st.subheader("Grad-CAM Explanation")
+
+        gradcam = GradCAM(
+            model=model,
+            target_layer=model.layer4[-1]
+        )
+
+        original_image = Image.open(temp_file.name).convert("L")
+        transform = get_transform()
+        input_tensor = transform(original_image).unsqueeze(0).to(device)
+
+        target_class = list(confidence_scores.keys()).index(predicted_class)
+
+        heatmap, _ = gradcam.generate(
+            input_tensor=input_tensor,
+            target_class=target_class
+        )
+
+        alpha = st.slider(
+            "Heatmap intensity",
+            min_value=0.1,
+            max_value=0.8,
+            value=0.45,
+            step=0.05
+        )
+
+        overlay = create_gradcam_overlay(
+            original_image=original_image,
+            heatmap=heatmap,
+            alpha=alpha
+        )
+
+        st.image(
+            overlay,
+            caption="Grad-CAM overlay showing regions that influenced the prediction",
+            width="stretch"
+        )
+
+        gradcam.remove_hooks()
