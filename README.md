@@ -1,5 +1,7 @@
 # Brain Tumor MRI Classification with CNNs and Transfer Learning
 
+An explainable deep learning pipeline for brain tumor MRI classification using PyTorch, transfer learning, Grad-CAM interpretability, and Streamlit deployment.
+
 ## Overview
 
 This project builds a deep learning pipeline for classifying brain MRI images into four categories:
@@ -9,7 +11,7 @@ This project builds a deep learning pipeline for classifying brain MRI images in
 - Pituitary tumor
 - No tumor
 
-The project begins with exploratory data analysis and a baseline convolutional neural network (CNN), then progresses toward transfer learning and model interpretability techniques such as Grad-CAM.
+The project begins with exploratory data analysis and a baseline convolutional neural network (CNN), then progresses through transfer learning and model interpretability techniques such as Grad-CAM.
 
 The goal is not only to achieve strong classification performance, but also to build a reproducible and interpretable neuro-imaging workflow.
 
@@ -32,10 +34,14 @@ The dataset contains labeled MRI scans split into training and testing sets.
 
 ```text
 brain-tumor-mri-classification/
-├── app.py             # Streamlit demo for interactive MRI classification
+├── app.py             # Streamlit demo for interactive MRI classification and Grad-CAM visualization
 ├── data/              # Local dataset storage (not tracked by Git)
 ├── notebooks/         # Exploratory analysis, training, evaluation, and experiments
-├── src/               # Reusable Python modules for config, datasets, and models
+├── src/               # Reusable modules for configuration, inference, Grad-CAM, datasets, and models
+│   ├── config.py      # Shared configuration and constants
+│   ├── models.py      # Model architectures and utilities
+│   ├── gradcam.py     # Grad-CAM interpretability utilities
+│   ├── inference.py   # Reusable inference pipeline
 ├── figures/           # Saved plots and visualizations used in the README
 ├── models/            # Saved model checkpoints (not tracked by Git)
 ├── reports/           # Future written summaries or project reports
@@ -88,6 +94,25 @@ brain-tumor-mri-classification/
 
 ---
 
+## Features
+
+- Baseline CNN and transfer learning pipelines for MRI classification
+- Fine-tuned ResNet18 achieving 91.0% test accuracy on four-class MRI classification
+- Grad-CAM interpretability visualizations for model explanation
+- Streamlit web application for interactive MRI classification
+- Confidence score visualization for all prediction classes
+- Adjustable Grad-CAM heatmap intensity
+- Modular inference and explainability pipeline for deployment
+
+### Interactive Features
+
+- MRI upload and prediction
+- Confidence score visualization
+- Optional Grad-CAM explanation overlay
+- Adjustable heatmap intensity
+
+---
+
 ## Setup
 
 ```bash
@@ -119,6 +144,30 @@ The baseline CNN achieved **86.6% test accuracy**, while the frozen ResNet18 ach
 | Baseline CNN | 92.9% | 86.6% |
 | Frozen ResNet18 | 92.2% | 86.1% |
 | Fine-Tuned ResNet18 | 95.5% | 91.0% |
+
+---
+
+## Streamlit Demo
+
+Interactive MRI classification web application built with Streamlit.
+
+The Streamlit interface supports MRI upload, confidence score visualization, and optional Grad-CAM explanations with adjustable heatmap intensity.
+
+### Prediction Interface
+
+![Streamlit Prediction Demo](figures/streamlit_prediction_demo.png)
+
+### Grad-CAM Explanation Interface
+
+![Streamlit GradCAM Demo](figures/streamlit_gradcam_demo.png)
+
+---
+
+## Run the Streamlit App
+
+```bash
+streamlit run app.py
+```
 
 ---
 
@@ -159,11 +208,11 @@ Misclassified examples:
 
 ---
 
-## Future Work
+## Future Improvements
 
 Potential future improvements include:
-- Grad-CAM interpretability visualizations
+- Public deployment of the Streamlit application
 - Data augmentation experiments
 - EfficientNet and DenseNet comparisons
 - Hyperparameter optimization
-- Streamlit deployment for interactive inference
+- Additional explainability techniques beyond Grad-CAM
