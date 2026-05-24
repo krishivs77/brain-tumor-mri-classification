@@ -42,6 +42,9 @@ brain-tumor-mri-classification/
 │   ├── models.py      # Model architectures and utilities
 │   ├── gradcam.py     # Grad-CAM interpretability utilities
 │   ├── inference.py   # Reusable inference pipeline
+├── scripts/           # Command-line utilities for inference
+│   └── predict.py     # CLI prediction script for single-image inference
+├── samples/           # Optional sample MRI images for inference demos
 ├── figures/           # Saved plots and visualizations used in the README
 ├── models/            # Saved model checkpoints (not tracked by Git)
 ├── reports/           # Future written summaries or project reports
@@ -171,6 +174,18 @@ streamlit run app.py
 
 ---
 
+## Command-Line Inference
+
+Run prediction on a single MRI image:
+
+```bash
+python scripts/predict.py --image samples/test_mri.jpg --show-probabilities
+```
+
+This prints the predicted class, top confidence score, and optional class probabilities.
+
+---
+
 ## Visual Results
 
 ### Fine-Tuned ResNet18 Accuracy Curve
@@ -205,6 +220,21 @@ Misclassified examples:
 - Glioma classification remained the most challenging class across all experiments, while pituitary tumors and healthy scans achieved the strongest performance.
 - Results suggest that partial fine-tuning of pretrained models is more effective for this MRI dataset than using fully frozen ImageNet features.
 - Grad-CAM visualizations showed that the fine-tuned model often focused near tumor regions, but misclassified glioma cases sometimes showed broader or less localized attention patterns.
+
+---
+
+## Limitations and Responsible Use
+
+This project is for educational and research portfolio purposes only. The model is not clinically validated and should not be used for medical diagnosis.
+
+Key limitations include:
+- The model was trained on a public dataset and may not generalize to external hospital or scanner distributions.
+- Dataset bias, image quality, and preprocessing choices may affect predictions.
+- High accuracy on the held-out test set does not imply clinical reliability.
+- False negatives could miss tumor cases, while false positives could incorrectly flag healthy scans.
+- Model predictions should be interpreted alongside expert clinical judgment, not in isolation.
+
+Future clinical work would require external validation, expert review, uncertainty estimation, prospective testing, and continuous model monitoring.
 
 ---
 
